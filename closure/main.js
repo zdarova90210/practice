@@ -10,8 +10,8 @@ secondFireBtn.addEventListener('click', secondCountFunction, false);
 
 function getCountFunction() {
   let counter = 0;
-  return () => {
-    console.log(++counter);
+  return ($event) => {
+    console.log(`${$event.target.id}'s counter: ${++counter}`);
     // return ++counter;
   }
 }
