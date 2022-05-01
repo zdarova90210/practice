@@ -36,6 +36,33 @@ if (!Array.prototype.myReduce) {
   }
 }
 
+if (!Array.prototype.myFlat) {
+  Array.prototype.myFlat = function (depth = 1) {
+    if (!(this instanceof Array)) {
+      throw new TypeError(`Array.prototype.myFlat was called on wrong type.`);
+    }
+    if(isNaN(depth) || depth <= 0) {
+      return this;
+    }
+
+    function flatten(arr, depth) {
+      let result = [];
+
+      for (let i = 0; i < arr.length; i++) {
+        const currentEl = arr[i];
+        if (Array.isArray(currentEl) && depth > 0) {
+          result.push(...flatten(currentEl, depth - 1));
+        } else {
+          result.push(currentEl)
+        }
+      }
+      return result;
+    }
+
+    return flatten(this, depth);
+  }
+}
+
 // const testArr = [1,2,3,4,5];
 // const myReduceResult = testArr.myReduce((acc, curr, i, arr) => {
 //   return acc + curr;
