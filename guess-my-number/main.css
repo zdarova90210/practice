@@ -1,0 +1,5 @@
+@import url(assets/fonts/fonts.css);
+
+body, button, input {
+  font-family: 'Press Start 2P', sans-serif;
+}
