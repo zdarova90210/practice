@@ -3,3 +3,42 @@
 body, button, input {
   font-family: 'Press Start 2P', sans-serif;
 }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.h1 {
+  text-align: center;
+}
+
+.answer {
+  display: flex;
+  justify-content: center;
+}
+
+.answer__text {
+  font-size: 64px;
+}
