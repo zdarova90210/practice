@@ -7,30 +7,28 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-<header class="header">
-  <div class="container">
-    <button class="restart">Again!</button>
-    <p class="note">(Between 1 and 20)</p>
-  </div>
-</header>
-<div class="container app-body">
-  <h1 class="h1">Guess My Number!</h1>
-  <div class="answer">
-    <p class="answer__text">?</p>
-  </div>
-  <div class="sides">
-    <div class="interactive"><input type="text" class="input">
-      <button class="check-btn">Check!</button>
-    </div>
-    <div class="info">
-      <div class="info-text"><span class="info-text__icon"></span>
-        <p class="info-text__text">Start guessing...</p>
+<div class="app">
+  <header class="app-header container">
+      <button class="restart-btn">Again!</button>
+      <p class="note">(Between 1 and 20)</p>
+  </header>
+  <div class="container app-body">
+    <h1 class="h1">Guess My Number!</h1>
+    <div class="answer">?</div>
+    <div class="sides">
+      <div class="interactive"><input type="text" class="user-answer">
+        <button class="check-btn">Check!</button>
       </div>
-      <div class="info-text"><span class="info-text__icon"></span>
-        <p class="info-text__text">Score: 20</p>
-      </div>
-      <div class="info-text"><span class="info-text__icon"></span>
-        <p class="info-text__text">High score: 0</p>
+      <div class="info">
+        <div class="info-text"><span class="info-text__icon"></span>
+          <p class="info-text__text">Start guessing...</p>
+        </div>
+        <div class="info-text"><span class="info-text__icon"></span>
+          <p class="info-text__text">💯 Score: 20</p>
+        </div>
+        <div class="info-text"><span class="info-text__icon"></span>
+          <p class="info-text__text">🎖️ High score: 0</p>
+        </div>
       </div>
     </div>
   </div>
