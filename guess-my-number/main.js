@@ -32,28 +32,28 @@ function checkAnswer() {
 }
 
 function updateHintText(userAnswer) {
-  hintEl.innerText = userAnswer < answerNumber ?
+  hintEl.textContent = userAnswer < answerNumber ?
     `📉 Too low!` : userAnswer > answerNumber ?
       `📈 Too high!` : '🎉 Correct number!';
 }
 
 function decreaseCurrentScore() {
-  const currScore = parseInt(currScoreEl.innerText, 10);
+  const currScore = parseInt(currScoreEl.textContent, 10);
   if (currScore <= 0) {
     gameOver();
   } else {
-    currScoreEl.innerText = String(currScore - 1);
+    currScoreEl.textContent = String(currScore - 1);
   }
 }
 
 function congrats() {
-  const currHighScore = parseInt(highScoreEl.innerText, 10);
-  const currScore = parseInt(currScoreEl.innerText, 10);
-  if (currScore > currHighScore) highScoreEl.innerText = currScore;
-  answerEl.innerText = answerNumber;
+  const currHighScore = highScoreEl.textContent;
+  const currScore = parseInt(currScoreEl.textContent, 10);
+  if (currScore > currHighScore) highScoreEl.textContent = currScore;
+  answerEl.textContent = answerNumber;
   document.body.classList.add('won');
   userAnswerEl.disabled = true;
-  checkBtnEl.style.display = 'none';
+  checkBtnEl.disabled = true;
 }
 
 function gameOver() {
@@ -63,10 +63,10 @@ function gameOver() {
 function doRestart() {
   answerNumber = getAnswerNumber();
   document.body.classList.remove('won');
-  answerEl.innerText = '?';
+  answerEl.textContent = '?';
   userAnswerEl.value = null;
-  currScoreEl.innerText = 20;
-  hintEl.innerText = 'Start guessing...';
+  currScoreEl.textContent = 20;
+  hintEl.textContent = 'Start guessing...';
   userAnswerEl.disabled = false;
-  checkBtnEl.style.display = 'block';
+  checkBtnEl.disabled = false;
 }
