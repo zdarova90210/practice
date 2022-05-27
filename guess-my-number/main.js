@@ -20,21 +20,19 @@ function getAnswerNumber() {
 
 function checkAnswer() {
   const userAnswer = userAnswerEl.value;
-  if (Boolean(!userAnswer)) {
-    console.log('Just type some number under check button 😉');
-  } else if (answerNumber - userAnswer === 0) {
+  if (answerNumber - userAnswer === 0) {
     congrats();
-    updateHintText(userAnswer);
   } else {
     decreaseCurrentScore();
-    updateHintText(userAnswer);
   }
+  updateHintText(userAnswer);
 }
 
 function updateHintText(userAnswer) {
-  hintEl.textContent = userAnswer < answerNumber ?
-    `📉 Too low!` : userAnswer > answerNumber ?
-      `📈 Too high!` : '🎉 Correct number!';
+  hintEl.textContent = !userAnswer ?
+    `⛔ No number!` : userAnswer < answerNumber ?
+      `📉 Too low!` : userAnswer > answerNumber ?
+        `📈 Too high!` : '🎉 Correct number!';
 }
 
 function decreaseCurrentScore() {
@@ -65,7 +63,7 @@ function doRestart() {
   document.body.classList.remove('won');
   answerEl.textContent = '?';
   userAnswerEl.value = null;
-  currScoreEl.textContent = 20;
+  currScoreEl.textContent = '20';
   hintEl.textContent = 'Start guessing...';
   userAnswerEl.disabled = false;
   checkBtnEl.disabled = false;
