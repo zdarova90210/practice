@@ -1,15 +1,16 @@
 'use strict';
 
-let answerNumber = getAnswerNumber();
+let secretNumber = getAnswerNumber();
 
 // Elements
-const restartBtnEl = document.querySelector('.restart-btn');
-const checkBtnEl = document.querySelector('.check-btn');
+let currScore = 20;
+const currScoreEl = document.querySelector('.current-score');
 const answerEl = document.querySelector('.answer');
 const userAnswerEl = document.querySelector('.user-answer');
-const currScoreEl = document.querySelector('.current-score');
-const hintEl = document.querySelector('.hint');
+const messageEl = document.querySelector('.message');
 const highScoreEl = document.querySelector('.high-score');
+const checkBtnEl = document.querySelector('.check-btn');
+const restartBtnEl = document.querySelector('.restart-btn');
 
 checkBtnEl.addEventListener('click', checkAnswer);
 restartBtnEl.addEventListener('click', doRestart);
@@ -20,52 +21,54 @@ function getAnswerNumber() {
 
 function checkAnswer() {
   const userAnswer = userAnswerEl.value;
-  if (answerNumber - userAnswer === 0) {
+  if (!userAnswer) {
+    displayMessage('⛔ No number!');
+    return;
+  }
+  if (secretNumber - userAnswer === 0) {
     congrats();
   } else {
-    decreaseCurrentScore();
+    decreaseCurrentScore(parseInt(userAnswer, 10));
   }
-  displayMessage(userAnswer);
 }
 
-// TODO: refactor this logic
-function displayMessage(userAnswer) {
-  hintEl.textContent = !userAnswer ?
-    `⛔ No number!` : userAnswer < answerNumber ?
-      `📉 Too low!` : userAnswer > answerNumber ?
-        `📈 Too high!` : '🎉 Correct number!';
+function displayMessage(message) {
+  messageEl.textContent = message;
 }
 
-function decreaseCurrentScore() {
-  const currScore = parseInt(currScoreEl.textContent, 10);
+function decreaseCurrentScore(usrAnswer) {
+  currScore--;
   if (currScore <= 0) {
     gameOver();
   } else {
+    displayMessage(usrAnswer > secretNumber ? `📈 Too high!` : `📉 Too low!`);
     currScoreEl.textContent = String(currScore - 1);
   }
 }
 
 function congrats() {
+  displayMessage('🎉 Correct number!');
   const currHighScore = highScoreEl.textContent;
   const currScore = parseInt(currScoreEl.textContent, 10);
   if (currScore > currHighScore) highScoreEl.textContent = String(currScore);
-  answerEl.textContent = answerNumber;
+  answerEl.textContent = secretNumber;
   document.body.classList.add('won');
   userAnswerEl.disabled = true;
   checkBtnEl.disabled = true;
 }
 
 function gameOver() {
-  console.log('Game over, try again?');
+  displayMessage('💥 Game over!');
 }
 
 function doRestart() {
-  answerNumber = getAnswerNumber();
+  secretNumber = getAnswerNumber();
   document.body.classList.remove('won');
   answerEl.textContent = '?';
   userAnswerEl.value = null;
+  currScore = 20;
   currScoreEl.textContent = '20';
-  hintEl.textContent = 'Start guessing...';
+  messageEl.textContent = 'Start guessing...';
   userAnswerEl.disabled = false;
   checkBtnEl.disabled = false;
 }
