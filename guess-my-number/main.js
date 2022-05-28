@@ -25,10 +25,11 @@ function checkAnswer() {
   } else {
     decreaseCurrentScore();
   }
-  updateHintText(userAnswer);
+  displayMessage(userAnswer);
 }
 
-function updateHintText(userAnswer) {
+// TODO: refactor this logic
+function displayMessage(userAnswer) {
   hintEl.textContent = !userAnswer ?
     `⛔ No number!` : userAnswer < answerNumber ?
       `📉 Too low!` : userAnswer > answerNumber ?
@@ -47,7 +48,7 @@ function decreaseCurrentScore() {
 function congrats() {
   const currHighScore = highScoreEl.textContent;
   const currScore = parseInt(currScoreEl.textContent, 10);
-  if (currScore > currHighScore) highScoreEl.textContent = currScore;
+  if (currScore > currHighScore) highScoreEl.textContent = String(currScore);
   answerEl.textContent = answerNumber;
   document.body.classList.add('won');
   userAnswerEl.disabled = true;
