@@ -12,8 +12,27 @@ const highScoreEl = document.querySelector('.high-score');
 const checkBtnEl = document.querySelector('.check-btn');
 const restartBtnEl = document.querySelector('.restart-btn');
 
-checkBtnEl.addEventListener('click', checkAnswer);
-restartBtnEl.addEventListener('click', doRestart);
+addEventListeners();
+
+function doKeyboardAction($event) {
+  if ($event.keyCode === 10) {
+    doRestart();
+  } else if ($event.code === 'ArrowUp') {
+    if (!userAnswerEl.value) {
+      userAnswerEl.value = '1';
+      return;
+    }
+    if (parseInt(userAnswerEl.value, 10) < 20) userAnswerEl.value++;
+  } else if ($event.code === 'ArrowDown') {
+    if (!userAnswerEl.value) {
+      userAnswerEl.value = '20';
+      return;
+    }
+    if (parseInt(userAnswerEl.value, 10) > 1) userAnswerEl.value--;
+  } else if ($event.code === 'Enter') {
+    checkAnswer();
+  }
+}
 
 function getAnswerNumber() {
   return Math.floor((Math.random() * 20) + 1);
@@ -47,6 +66,7 @@ function decreaseCurrentScore(usrAnswer) {
 }
 
 function congrats() {
+  removeEventListeners();
   displayMessage('🎉 Correct number!');
   const currHighScore = highScoreEl.textContent;
   const currScore = parseInt(currScoreEl.textContent, 10);
@@ -58,10 +78,25 @@ function congrats() {
 }
 
 function gameOver() {
+  removeEventListeners();
   displayMessage('💥 Game over!');
 }
 
+function addEventListeners() {
+  checkBtnEl.addEventListener('click', checkAnswer);
+  restartBtnEl.addEventListener('click', doRestart);
+  document.body.addEventListener('keypress', doKeyboardAction);
+  document.body.addEventListener('keydown', doKeyboardAction);
+}
+
+function removeEventListeners() {
+  checkBtnEl.removeEventListener('click', checkAnswer);
+  restartBtnEl.removeEventListener('click', doRestart);
+  document.body.removeEventListener('keydown', doKeyboardAction);
+}
+
 function doRestart() {
+  addEventListeners();
   secretNumber = getAnswerNumber();
   document.body.classList.remove('won');
   answerEl.textContent = '?';
